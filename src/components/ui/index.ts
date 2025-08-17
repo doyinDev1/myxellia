@@ -5,3 +5,5 @@ export * from "./OverviewCard";
 export * from "./MetricsOverviewCard";
 export * from "./ListingsOverviewCard";
 export * from "./UsersOverviewCard";
+export * from "./BarChart";
+export * from "./MetricCard";
