@@ -9,3 +9,4 @@ export * from "./UsersIcon";
 export * from "./RequestIcon";
 export * from "./ApplicationsIcon";
 export * from "./SearchIcon";
+export * from "./HomeIcon";

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { euclidCircularB } from "@/styles";
 import { Navbar } from "@/components";
+import { Container } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Myxellia",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${euclidCircularB.variable}`}>
         <Navbar />
-        {children}
+        <Container maxWidth="xl">
+          {children}
+        </Container>
       </body>
     </html>
   );
