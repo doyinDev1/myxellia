@@ -13,6 +13,7 @@ import {
     Container,
     styled
 } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 import {
     BellIcon,
     CalculatorIcon,
@@ -72,6 +73,7 @@ const StyledNavItem = styled(Button, {
 
 export const Navbar = () => {
     const [showUserProfile, setShowUserProfile] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
     const pathname = usePathname();
 
     const renderNavItem = (item: { key: string; title: string; href: string; icon: string }) => {
@@ -171,7 +173,23 @@ export const Navbar = () => {
                                     }
                                 }}
                                 placeholder="Search listings, users here..."
+                                value={searchValue}
+                                onChange={(e) => setSearchValue(e.target.value)}
                             />
+                            {searchValue && (
+                                <IconButton
+                                    onClick={() => setSearchValue('')}
+                                    sx={{
+                                        p: 0.5,
+                                        color: colors.gray[400],
+                                        '&:hover': {
+                                            color: colors.gray[600]
+                                        }
+                                    }}
+                                >
+                                    <CancelIcon sx={{ fontSize: 16, color: colors.gray.main }} />
+                                </IconButton>
+                            )}
                         </Box>
                     </Toolbar>
                 </Container>
