@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { euclidCircularB } from "./styles";
 import "./globals.css";
+import { euclidCircularB } from "@/styles";
+import { Navbar } from "@/components";
 
 export const metadata: Metadata = {
   title: "Myxellia",
-  description: "Myxellia Assessment",
+  description: "My Myxellia Assessment",
 };
 
 export default function RootLayout({
@@ -15,8 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${euclidCircularB.variable}`}>
+        <Navbar />
         {children}
       </body>
     </html>
   );
-}
+};
