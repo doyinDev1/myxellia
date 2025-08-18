@@ -17,7 +17,7 @@ const StyledStack = styled(Stack)({
 const TimeFilterButton = styled(Button)({
     textTransform: "none",
     borderRadius: "8px",
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: "var(--font-euclid-circular-b), sans-serif",
     fontWeight: 400,
     padding: "6px 16px",
