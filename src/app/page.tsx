@@ -1,7 +1,7 @@
 import { Heading } from "@/components";
 import { colors } from "@/styles";
 import { Box } from "@mui/material";
-import { SalesOverviewCard, ListingsOverviewCard, UsersOverviewCard } from "@/components/ui";
+import { SalesOverviewCard, ListingsOverviewCard, UsersOverviewCard, PropertyListingsSection } from "@/components/ui";
 
 export default function Home() {
   return (
@@ -22,6 +22,7 @@ export default function Home() {
           <UsersOverviewCard />
         </Box>
       </Box>
+      <PropertyListingsSection />
     </Box>
   );
 }
