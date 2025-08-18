@@ -21,7 +21,9 @@ import {
     LogoIcon,
     MessagesIcon,
     UserProfileHover,
-    SearchIcon
+    SearchIcon,
+    BudgetingDialog,
+    CalendarWidget
 } from '@/components';
 import { colors } from '@/styles';
 import { navItems } from './nav-items';
@@ -74,6 +76,8 @@ const StyledNavItem = styled(Button, {
 export const Navbar = () => {
     const [showUserProfile, setShowUserProfile] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [showBudgetingDialog, setShowBudgetingDialog] = useState(false);
+    const [showCalendarWidget, setShowCalendarWidget] = useState(false);
     const pathname = usePathname();
 
     const renderNavItem = (item: { key: string; title: string; href: string; icon: string }) => {
@@ -109,10 +113,10 @@ export const Navbar = () => {
                             <StyledIcon disabled>
                                 <BellIcon />
                             </StyledIcon>
-                            <StyledIcon >
+                            <StyledIcon onClick={() => setShowBudgetingDialog(true)}>
                                 <CalculatorIcon />
                             </StyledIcon>
-                            <StyledIcon >
+                            <StyledIcon onClick={() => setShowCalendarWidget(!showCalendarWidget)}>
                                 <CalendarIcon />
                             </StyledIcon>
                             <StyledIcon disabled>
@@ -194,6 +198,14 @@ export const Navbar = () => {
                     </Toolbar>
                 </Container>
             </Box>
+            <BudgetingDialog
+                open={showBudgetingDialog}
+                onClose={() => setShowBudgetingDialog(false)}
+            />
+            <CalendarWidget
+                open={showCalendarWidget}
+                onClose={() => setShowCalendarWidget(false)}
+            />
         </Box>
     );
 };
