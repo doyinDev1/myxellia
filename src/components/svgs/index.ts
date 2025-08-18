@@ -12,3 +12,4 @@ export * from "./SearchIcon";
 export * from "./HomeIcon";
 export * from "./UpTrendIcon";
 export * from "./DownTrendIcon";
+export * from "./ChevronLeftIcon";
