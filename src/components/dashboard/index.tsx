@@ -24,10 +24,10 @@ export const Dashboard = () => {
         <Box sx={{ margin: "12px 24px 16px 24px" }}>
             <Heading sx={{ fontWeight: 600, fontSize: 20, color: colors.primary.main, marginBottom: 2 }}>Welcome, Ahmed</Heading>
             <StyledBox>
-                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(65% - 12px)' }, width: "-webkit-fill-available" }}>
+                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(68% - 12px)' }, width: "-webkit-fill-available" }}>
                     <SalesOverviewCard />
                 </Box>
-                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(35% - 12px)' }, display: "flex", flexDirection: "column", gap: "20px" }}>
+                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(32% - 12px)' }, display: "flex", flexDirection: "column", gap: "20px" }}>
                     <ListingsOverviewCard />
                     <UsersOverviewCard />
                 </Box>

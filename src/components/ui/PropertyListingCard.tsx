@@ -89,6 +89,7 @@ export const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
                     alt={title}
                     fill
                     style={{ objectFit: 'cover' }}
+                    fetchPriority="high"
                 />
                 <GradientOverlay />
                 <ContentOverlay>
