@@ -7,11 +7,11 @@ import { BarChart } from "./BarChart";
 import { MetricCard } from "./MetricCard";
 
 const StyledStack = styled(Stack)({
-    marginTop: -8,
-    marginBottom: 16,
     justifyContent: "space-between",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    borderBottom: `1px solid ${colors.secondary[200]}`,
+    paddingBottom: "12px",
 });
 
 const TimeFilterButton = styled(Button)({
@@ -59,13 +59,13 @@ export const SalesOverviewCard = () => {
     return (
         <CardWrapper>
             <StyledStack spacing={2}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1, }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1, alignSelf: "flex-start" }}>
                     <Heading >Sales Overview</Heading>
                     <Paragraph sx={{ color: colors.gray[500], fontSize: 12 }}>
                         Showing overview Jan 2022 - Sep 2022
                     </Paragraph>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1, alignItems: "flex-end" }}>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "17px" }}>
                     <Button
                         variant="outlined"
                         sx={{
@@ -77,6 +77,7 @@ export const SalesOverviewCard = () => {
                             fontFamily: "var(--font-euclid-circular-b), sans-serif",
                             fontWeight: 400,
                             padding: "12px 24px",
+                            marginTop: "-15px"
                         }}
                     >
                         View Transactions
@@ -97,8 +98,8 @@ export const SalesOverviewCard = () => {
             <Box sx={{
                 display: "flex",
                 gap: "11px",
-                marginTop: 2,
-                alignItems: "flex-start"
+                marginTop: "16px",
+                alignItems: "center"
             }}>
                 <Box sx={{ flex: 1, height: "180px", width: "100%" }}>
                     <BarChart

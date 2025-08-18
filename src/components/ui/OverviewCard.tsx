@@ -12,7 +12,7 @@ interface OverviewCardProps {
 }
 
 const StyledBox = styled(Box)({
-    marginBottom: "20px",
+    height: "163px",
     borderTopLeftRadius: "16px",
     borderTopRightRadius: "16px",
     border: "1px solid",

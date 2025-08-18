@@ -40,7 +40,6 @@ export const PropertyListingsSection: React.FC = () => {
             [propertyId]: imageIndex
         }));
     };
-    
     return (
         <Box sx={{ marginTop: "20px" }}>
             <Box sx={{

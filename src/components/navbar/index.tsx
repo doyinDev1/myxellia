@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -11,7 +11,8 @@ import {
     InputBase,
     Avatar,
     Container,
-    styled
+    styled,
+    Tooltip
 } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {
@@ -29,17 +30,8 @@ import { colors } from '@/styles';
 import { navItems } from './nav-items';
 import { navIcons } from './nav-icons';
 
-const StyledIcon = styled(IconButton, {
-    shouldForwardProp: (prop) => prop !== "disabled",
-})<{ disabled?: boolean }>(({ disabled }) => ({
-    color: disabled ? colors.gray.main : colors.white,
-    '&:hover': {
-        color: colors.white,
-    },
-    '&.Mui-disabled': {
-        color: colors.gray.main,
-        opacity: 0.6
-    }
+const StyledIcon = styled(IconButton)(() => ({
+    color: colors.white,
 }));
 
 const StyledAvatar = styled(Avatar, {
@@ -73,6 +65,36 @@ const StyledNavItem = styled(Button, {
     transition: 'all 0.2s ease'
 }));
 
+const StyledBox = styled(Box)({
+    display: 'flex',
+    alignItems: 'center',
+    width: '320px',
+    height: '43px',
+    backgroundColor: colors.gray[300],
+    borderRadius: "12px",
+    padding: '0 16px',
+    border: '1px solid',
+    borderColor: colors.secondary[200],
+    boxShadow: 'none'
+});
+
+const StyledTooltip = styled(({ className, ...props }: React.ComponentProps<typeof Tooltip>) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))({
+    '& .MuiTooltip-tooltip': {
+        fontFamily: 'var(--font-euclid-circular-b), sans-serif',
+        backgroundColor: colors.gray[850],
+        color: colors.white,
+        fontSize: '12px',
+        fontWeight: 500,
+        padding: '8px 12px',
+        borderRadius: '8px',
+        '& .MuiTooltip-arrow': {
+            color: colors.gray[850],
+        },
+    },
+});
+
 export const Navbar = () => {
     const [showUserProfile, setShowUserProfile] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -80,7 +102,7 @@ export const Navbar = () => {
     const [showCalendarWidget, setShowCalendarWidget] = useState(false);
     const pathname = usePathname();
 
-    const renderNavItem = (item: { key: string; title: string; href: string; icon: string }) => {
+    const renderNavItem = useCallback((item: { key: string; title: string; href: string; icon: string }) => {
         const Icon = navIcons[item.icon as keyof typeof navIcons];
         const active = pathname === item.href;
 
@@ -92,7 +114,7 @@ export const Navbar = () => {
                 </StyledNavItem>
             </Link>
         );
-    };
+    }, [pathname]);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -110,18 +132,26 @@ export const Navbar = () => {
                             </Box>
                         </Link>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                            <StyledIcon disabled>
-                                <BellIcon />
-                            </StyledIcon>
-                            <StyledIcon onClick={() => setShowBudgetingDialog(true)}>
-                                <CalculatorIcon />
-                            </StyledIcon>
-                            <StyledIcon onClick={() => setShowCalendarWidget(!showCalendarWidget)}>
-                                <CalendarIcon />
-                            </StyledIcon>
-                            <StyledIcon disabled>
-                                <MessagesIcon />
-                            </StyledIcon>
+                            <StyledTooltip title="Notifications" placement="bottom" arrow>
+                                <StyledIcon >
+                                    <BellIcon />
+                                </StyledIcon>
+                            </StyledTooltip>
+                            <StyledTooltip title="Budgeting" placement="bottom" arrow>
+                                <StyledIcon onClick={() => setShowBudgetingDialog(true)}>
+                                    <CalculatorIcon />
+                                </StyledIcon>
+                            </StyledTooltip>
+                            <StyledTooltip title="Calendar" placement="bottom" arrow>
+                                <StyledIcon onClick={() => setShowCalendarWidget(!showCalendarWidget)}>
+                                    <CalendarIcon />
+                                </StyledIcon>
+                            </StyledTooltip>
+                            <StyledTooltip title="Messages" placement="bottom" arrow>
+                                <StyledIcon >
+                                    <MessagesIcon />
+                                </StyledIcon>
+                            </StyledTooltip>
                             <Box sx={{ position: 'relative' }}>
                                 <StyledAvatar
                                     onMouseEnter={() => setShowUserProfile(true)}
@@ -151,20 +181,7 @@ export const Navbar = () => {
                         }}>
                             {navItems.map(renderNavItem)}
                         </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                width: 320,
-                                height: 43,
-                                backgroundColor: colors.gray[300],
-                                borderRadius: 3,
-                                px: 2,
-                                border: '1px solid',
-                                borderColor: colors.secondary[200],
-                                boxShadow: 'none'
-                            }}
-                        >
+                        <StyledBox>
                             <SearchIcon sx={{ fontSize: 24, color: colors.gray[400], mr: 1 }} />
                             <InputBase
                                 sx={{
@@ -183,18 +200,11 @@ export const Navbar = () => {
                             {searchValue && (
                                 <IconButton
                                     onClick={() => setSearchValue('')}
-                                    sx={{
-                                        p: 0.5,
-                                        color: colors.gray[400],
-                                        '&:hover': {
-                                            color: colors.gray[600]
-                                        }
-                                    }}
-                                >
+                                    sx={{ p: 0.5, color: colors.gray[400] }} >
                                     <CancelIcon sx={{ fontSize: 16, color: colors.gray.main }} />
                                 </IconButton>
                             )}
-                        </Box>
+                        </StyledBox>
                     </Toolbar>
                 </Container>
             </Box>

@@ -13,3 +13,8 @@ export * from "./HomeIcon";
 export * from "./UpTrendIcon";
 export * from "./DownTrendIcon";
 export * from "./ChevronLeftIcon";
+export * from "./SettingsIcon";
+export * from "./TrackIcon";
+export * from "./PollIcon";
+export * from "./BudgetingIcon";
+export * from "./MessageIcon";
