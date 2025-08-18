@@ -11,6 +11,7 @@ export const colors = {
     gray: {
       main: "#666666",
       100: "#F4F4F5",
+      150: "#737373",
       200: "#919191",
       300: "#F5F5F5",
       400: "#3D3D3D",
@@ -20,6 +21,7 @@ export const colors = {
       700: "#F9FAFB",
       800: "#292929",
       900: "#141414"
+
     },
     error: {
         main: "#B91C1C",
