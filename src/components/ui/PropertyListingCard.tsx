@@ -1,9 +1,9 @@
 "use client";
 import React from 'react';
-import Image from 'next/image';
 import { Box, styled } from '@mui/material';
-import { Heading, Paragraph } from '../typography';
 import { colors } from '@/styles';
+import { Heading, Paragraph } from '@/components';
+import Image from 'next/image';
 
 interface PropertyListingCardProps {
     title: string;

@@ -1,8 +1,7 @@
 "use client";
-import { Heading, MessageIcon } from "@/components";
-import { colors } from "@/styles";
 import { Box, IconButton, styled } from "@mui/material";
-import { SalesOverviewCard, ListingsOverviewCard, UsersOverviewCard, PropertyListingsSection } from "@/components/ui";
+import { Heading, ListingsOverviewCard, MessageIcon, PropertyListingsSection, SalesOverviewCard, UsersOverviewCard } from "@/components";
+import { colors } from "@/styles";
 
 const StyledBox = styled(Box)({
     display: 'flex',
@@ -17,6 +16,20 @@ const CTAContainer = styled(Box)({
     bottom: '212px',
     right: '40px',
     zIndex: 3,
+});
+
+const StyledIconButton = styled(IconButton)({
+    backgroundColor: colors.secondary[700],
+    border: '1px solid #FFFFFF33',
+    color: colors.white,
+    padding: '16px',
+    borderRadius: '50%',
+    width: '58px',
+    height: '58px',
+    '&:hover': {
+        backgroundColor: colors.secondary[700],
+        color: colors.white,
+    }
 });
 
 export const Dashboard = () => {
@@ -34,21 +47,9 @@ export const Dashboard = () => {
             </StyledBox>
             <PropertyListingsSection />
             <CTAContainer>
-                <IconButton sx={{
-                    backgroundColor: colors.secondary[700],
-                    border: '1px solid #FFFFFF33',
-                    color: colors.white,
-                    padding: '16px',
-                    borderRadius: '50%',
-                    width: '58px',
-                    height: '58px',
-                    '&:hover': {
-                        backgroundColor: colors.secondary[700],
-                        color: colors.white,
-                    }
-                }}>
+                <StyledIconButton>
                     <MessageIcon />
-                </IconButton>
+                </StyledIconButton>
             </CTAContainer>
         </Box>
     )

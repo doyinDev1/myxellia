@@ -1,5 +1,4 @@
-import { MetricsOverviewCard } from "./MetricsOverviewCard";
-import { UsersIcon } from "../svgs";
+import { MetricsOverviewCard, UsersIcon } from "@/components";
 import { colors } from "@/styles";
 
 const usersMetrics = [

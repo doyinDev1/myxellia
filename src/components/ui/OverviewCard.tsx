@@ -2,7 +2,7 @@
 import { Box, Link, styled } from "@mui/material";
 import { ReactNode } from "react";
 import { colors } from "@/styles";
-import { Paragraph } from "../typography";
+import { Paragraph } from "@/components";
 
 interface OverviewCardProps {
     title: string;

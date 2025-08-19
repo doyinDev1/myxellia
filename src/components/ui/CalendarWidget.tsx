@@ -5,12 +5,11 @@ import {
     IconButton,
     styled,
 } from '@mui/material';
-import { format, addMonths, subMonths } from 'date-fns';
+import { addMonths, format, subMonths } from 'date-fns';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
-import { Paragraph } from '../typography';
+import { ChevronLeftIcon, Paragraph } from '@/components';
 import { colors } from '@/styles';
-import { ChevronLeftIcon } from '../svgs';
 
 interface CalendarWidgetProps {
     open: boolean;

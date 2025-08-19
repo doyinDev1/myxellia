@@ -1,16 +1,14 @@
 "use client"
 import React from 'react';
 import {
-    Dialog,
     Box,
     Button,
+    Dialog,
     styled,
 } from '@mui/material';
-import Image from 'next/image';
-import { BudgetingIcon, PollIcon, SettingsIcon, TrackIcon } from '@/components/svgs';
-import { Heading, Paragraph } from '../typography';
 import { colors } from '@/styles';
-
+import { BudgetingIcon, Heading, Paragraph, PollIcon, SettingsIcon, TrackIcon } from '@/components';
+import Image from 'next/image';
 
 interface BudgetingDialogProps {
     open: boolean;

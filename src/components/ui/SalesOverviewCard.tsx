@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Box, Button, IconButton, Stack, styled } from "@mui/material";
 import { CardWrapper } from "./CardWrapper";
-import { BarChart, ChevronLeftIcon, Heading, Paragraph, MetricCard } from "@/components";
+import { BarChart, ChevronLeftIcon, Heading, MetricCard, Paragraph } from "@/components";
 import { colors } from "@/styles";
 
 const StyledStack = styled(Stack)({

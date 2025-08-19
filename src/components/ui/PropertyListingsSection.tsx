@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { PropertyListingCard } from './PropertyListingCard';
+import { PropertyListingCard } from '@/components';
 
 const propertyListings = [
     {

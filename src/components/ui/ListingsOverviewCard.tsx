@@ -1,5 +1,4 @@
-import { MetricsOverviewCard } from "./MetricsOverviewCard";
-import { HomeIcon } from "../svgs";
+import { HomeIcon, MetricsOverviewCard } from "@/components";
 import { colors } from "@/styles";
 
 const listingsMetrics = [

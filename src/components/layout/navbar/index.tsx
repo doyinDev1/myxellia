@@ -4,27 +4,27 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
     AppBar,
-    Toolbar,
-    Box,
-    IconButton,
-    Button,
-    InputBase,
     Avatar,
+    Box,
     Container,
+    Button,
+    IconButton,
+    InputBase,
     styled,
+    Toolbar,
     Tooltip
 } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {
     BellIcon,
+    BudgetingDialog,
     CalculatorIcon,
+    CalendarWidget,
     CalendarIcon,
     LogoIcon,
     MessagesIcon,
-    UserProfileHover,
     SearchIcon,
-    BudgetingDialog,
-    CalendarWidget
+    UserProfileHover
 } from '@/components';
 import { colors } from '@/styles';
 import { navItems } from './nav-items';

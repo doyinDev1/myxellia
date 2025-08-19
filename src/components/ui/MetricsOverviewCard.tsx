@@ -1,9 +1,8 @@
 "use client";
 import { Box, styled } from "@mui/material";
-import { OverviewCard } from "./OverviewCard";
-import { colors } from "@/styles";
-import { Heading, Paragraph } from "../typography";
 import { ReactNode } from "react";
+import { colors } from "@/styles";
+import { Heading, Paragraph, OverviewCard } from "@/components";
 
 const StyledHeading = styled(Heading)({
     color: colors.gray[900],
