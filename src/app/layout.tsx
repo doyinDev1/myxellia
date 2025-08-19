@@ -6,7 +6,7 @@ import { Container } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Myxellia",
-  description: "My Myxellia Assessment",
+  description: "Myxellia Admin Dashboard",
 };
 
 export default function RootLayout({

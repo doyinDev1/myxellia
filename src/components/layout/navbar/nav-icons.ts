@@ -1,4 +1,4 @@
-import { ApplicationsIcon, DashboardIcon, ListingsIcon, RequestIcon, UsersIcon } from "../svgs";
+import { ApplicationsIcon, DashboardIcon, ListingsIcon, RequestIcon, UsersIcon } from "../../svgs";
 
 export const navIcons = {
   dashboard: DashboardIcon,
