@@ -39,7 +39,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 }) => {
     return (
         <Box sx={{ width: "calc(100% + 60px)", height: "100%" }}>
-            <ResponsiveContainer width="100%" height={height} style={{ marginLeft: "-45px" }}>
+            <ResponsiveContainer width="100%" height={height} style={{ marginLeft: "-40px" }}>
                 <RechartsBarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }} barGap={3} >
                     {(showGrid || showXGrid || showYGrid) && (
                         <CartesianGrid

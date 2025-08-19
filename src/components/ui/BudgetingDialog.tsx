@@ -117,7 +117,7 @@ const CreateBudgetButton = styled(Button)({
     fontWeight: 500,
     fontFamily: 'var(--font-euclid-circular-b), sans-serif',
     width: '100%',
-
+    textTransform: 'none',
     '&:hover': {
         backgroundColor: colors.secondary[600],
     },
