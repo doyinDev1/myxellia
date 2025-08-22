@@ -30,21 +30,32 @@ import { colors } from '@/styles';
 import { navItems } from './nav-items';
 import { navIcons } from './nav-icons';
 
-const StyledIcon = styled(IconButton)(() => ({
+const StyledIcon = styled(IconButton, {
+    shouldForwardProp: (prop) => prop !== "disabled",
+})<{ disabled?: boolean }>(({ disabled }) => ({
     color: colors.white,
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    '&:hover': {
+        cursor: disabled ? 'not-allowed' : 'pointer',
+    },
 }));
 
 const StyledAvatar = styled(Avatar, {
-    shouldForwardProp: (prop) => prop !== "showUserProfile",
+    shouldForwardProp: (prop) => !["showUserProfile"].includes(prop as string),
 })<{ showUserProfile?: boolean }>(({ showUserProfile }) => ({
     backgroundColor: 'white',
     color: 'black',
     fontWeight: 500,
     fontSize: 23,
     cursor: 'pointer',
+    fontFamily: 'var(--font-euclid-circular-b)',
     border: showUserProfile ? "4px solid white" : "4px solid transparent",
     transform: showUserProfile ? "scale(1.05)" : "scale(1)",
-    transition: "all 0.3s ease"
+    transition: "all 0.3s ease",
+    "&:hover": {
+        transform: "scale(1.05)",
+        boxShadow: `0 0 0 4px ${colors.gray[100]}`,
+    }
 }));
 
 const StyledNavItem = styled(Button, {
@@ -120,7 +131,7 @@ export const Navbar = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: colors.primary.main }}>
                 <Container maxWidth="xl">
-                    <Toolbar sx={{ justifyContent: 'space-between', px: 0 }}>
+                    <Toolbar sx={{ justifyContent: 'space-between', px: 0, height: '82px' }}>
                         <Link href="/" style={{ textDecoration: 'none' }}>
                             <Box sx={{
                                 display: 'flex',
@@ -133,7 +144,7 @@ export const Navbar = () => {
                         </Link>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                             <StyledTooltip title="Notifications" placement="bottom" arrow>
-                                <StyledIcon >
+                                <StyledIcon disabled>
                                     <BellIcon />
                                 </StyledIcon>
                             </StyledTooltip>
@@ -148,7 +159,7 @@ export const Navbar = () => {
                                 </StyledIcon>
                             </StyledTooltip>
                             <StyledTooltip title="Messages" placement="bottom" arrow>
-                                <StyledIcon >
+                                <StyledIcon disabled>
                                     <MessagesIcon />
                                 </StyledIcon>
                             </StyledTooltip>
@@ -185,7 +196,6 @@ export const Navbar = () => {
                             <SearchIcon sx={{ fontSize: 24, color: colors.gray[400], mr: 1 }} />
                             <InputBase
                                 sx={{
-                                    flex: 1,
                                     fontSize: 12,
                                     fontWeight: 300,
                                     fontFamily: 'var(--font-euclid-circular-b)',

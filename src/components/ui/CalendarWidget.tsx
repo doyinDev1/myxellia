@@ -9,6 +9,7 @@ import { addMonths, format, subMonths } from 'date-fns';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 import { ChevronLeftIcon, Paragraph } from '@/components';
+import { useTransition } from '@/hooks';
 import { colors } from '@/styles';
 
 interface CalendarWidgetProps {
@@ -88,25 +89,34 @@ const MonthYearText = styled(Paragraph)({
     fontSize: '16px',
     fontWeight: 600,
     color: colors.white,
+    transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
 });
 
 const NavigationButton = styled(IconButton)({
     width: '30px',
     height: '30px',
     color: '#ffffff',
+    transition: 'all 0.2s ease-in-out',
     '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        transform: 'scale(1.1)',
+    },
+    '&:active': {
+        transform: 'scale(0.95)',
     },
 });
 
 const CalendarGrid = styled(Box)({
     padding: '0 24px 24px',
     flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
 });
 
 const WeekDaysHeader = styled(Box)({
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 50px)',
+    transition: 'opacity 0.3s ease-in-out',
 });
 
 const WeekDay = styled(Box)({
@@ -130,10 +140,15 @@ const WeekDay = styled(Box)({
     },
 });
 
-const CalendarDays = styled(Box)({
+const CalendarDays = styled(Box, {
+    shouldForwardProp: (prop) => prop !== 'isTransitioning',
+})<{ isTransitioning?: boolean }>(({ isTransitioning }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 50px)',
-});
+    transition: 'all 0.4s ease-in-out',
+    opacity: isTransitioning ? 0.7 : 1,
+    transform: isTransitioning ? 'translateY(10px)' : 'translateY(0)',
+}));
 
 const DayCell = styled(Box, {
     shouldForwardProp: (prop) => !['selected', 'today'].includes(prop as string),
@@ -158,6 +173,7 @@ const DayCell = styled(Box, {
 
     '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        transform: 'scale(1.02)',
     },
 }));
 
@@ -172,6 +188,7 @@ const PillBackground = styled(Box, {
     backgroundColor: selected ? colors.secondary[400] : 'transparent',
     borderRadius: '12px',
     zIndex: 0,
+    transition: 'all 0.3s ease-in-out',
 }));
 
 const DayText = styled(Paragraph, {
@@ -187,6 +204,7 @@ const DayText = styled(Paragraph, {
     textAlign: 'center',
     zIndex: 1,
     position: 'relative',
+    transition: 'all 0.3s ease-in-out',
 }));
 
 export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
@@ -196,12 +214,18 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
     const [currentDate, setCurrentDate] = useState(new Date(2025, 10, 1));
     const [selectedDate, setSelectedDate] = useState(new Date(2025, 10, 16));
 
+    const { isTransitioning, startTransition } = useTransition({ duration: 200 });
+
     const handlePreviousMonth = () => {
-        setCurrentDate(subMonths(currentDate, 1));
+        startTransition(() => {
+            setCurrentDate(subMonths(currentDate, 1));
+        });
     };
 
     const handleNextMonth = () => {
-        setCurrentDate(addMonths(currentDate, 1));
+        startTransition(() => {
+            setCurrentDate(addMonths(currentDate, 1));
+        });
     };
 
     const handleDateSelect = (date: Date) => {
@@ -250,7 +274,10 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
                     <NavigationButton onClick={handlePreviousMonth}>
                         <ChevronLeftIcon sx={{ color: colors.gray[250], fontSize: '14px' }} />
                     </NavigationButton>
-                    <MonthYearText>
+                    <MonthYearText sx={{
+                        opacity: isTransitioning ? 0.5 : 1,
+                        transform: isTransitioning ? 'scale(0.95)' : 'scale(1)'
+                    }}>
                         {format(currentDate, 'MMMM yyyy')}
                     </MonthYearText>
                     <NavigationButton onClick={handleNextMonth}>
@@ -264,7 +291,7 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
                             <WeekDay key={day}>{day}</WeekDay>
                         ))}
                     </WeekDaysHeader>
-                    <CalendarDays>
+                    <CalendarDays isTransitioning={isTransitioning}>
                         {calendarDays.map((date, index) => {
                             const isSelected = selectedDate &&
                                 date.getDate() === selectedDate.getDate() &&

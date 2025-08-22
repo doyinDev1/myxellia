@@ -3,6 +3,7 @@ import React from 'react';
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { colors } from '@/styles';
 import { Box } from '@mui/material';
+import { CustomTooltip } from './CustomTooltip';
 
 export interface BarChartData {
     [key: string]: string | number;
@@ -65,15 +66,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 
                     />
                     {showTooltip && (
-                        <Tooltip
-                            contentStyle={{
-                                backgroundColor: '#333',
-                                border: 'none',
-                                borderRadius: 8,
-                                color: 'white'
-                            }}
-                            labelStyle={{ color: 'white' }}
-                        />
+                        <Tooltip content={<CustomTooltip bars={bars} />} />
                     )}
                     {bars.map((bar) => (
                         <Bar

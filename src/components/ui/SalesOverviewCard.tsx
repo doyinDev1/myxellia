@@ -101,9 +101,9 @@ const StyledBox = styled(Box)({
 });
 
 const bars = [
-    { key: "category1", color: colors.secondary.main, name: "Category 1" },
-    { key: "category2", color: colors.secondary[100], name: "Category 2" },
-    { key: "category3", color: colors.error[500], name: "Category 3" },
+    { key: "category1", color: colors.secondary.main, name: "Total Inflow" },
+    { key: "category2", color: colors.secondary[100], name: "MRR" },
+    { key: "category3", color: colors.error[500], name: "GMV" },
 ];
 
 const timePeriods = [

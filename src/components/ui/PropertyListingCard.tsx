@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, styled } from '@mui/material';
 import { colors } from '@/styles';
 import { Heading, Paragraph } from '@/components';
@@ -8,8 +8,7 @@ import Image from 'next/image';
 interface PropertyListingCardProps {
     title: string;
     subtitle: string;
-    imagePath: string;
-    imageCount: number;
+    imagePaths: string[];
     currentImageIndex: number;
     onImageChange: (index: number) => void;
 }
@@ -19,9 +18,15 @@ const CardContainer = styled(Box)({
     borderRadius: '12px',
     overflow: 'hidden',
     cursor: 'pointer',
-    transition: 'transform 0.2s ease',
+    transition: 'transform 0.3s ease-in-out',
     '&:hover': {
-        transform: 'scale(1.02)'
+        transform: 'scale(1.02)',
+        '& .content-overlay': {
+            transform: 'translateY(-5px)'
+        },
+        '& .progress-container': {
+            opacity: 1
+        }
     }
 });
 
@@ -32,6 +37,13 @@ const ImageContainer = styled(Box)({
     overflow: 'hidden'
 });
 
+const ImageWrapper = styled(Box)({
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    transition: 'opacity 0.5s ease-in-out'
+});
+
 const GradientOverlay = styled(Box)({
     position: 'absolute',
     top: 0,
@@ -39,7 +51,8 @@ const GradientOverlay = styled(Box)({
     right: 0,
     bottom: 0,
     background: 'linear-gradient(180deg, #0000000D 0%, #00000099 100%)',
-    zIndex: 1
+    zIndex: 1,
+    transition: 'opacity 0.3s ease-in-out'
 });
 
 const ContentOverlay = styled(Box)({
@@ -49,7 +62,8 @@ const ContentOverlay = styled(Box)({
     right: 0,
     padding: '24px',
     zIndex: 2,
-    color: 'white'
+    color: 'white',
+    transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out'
 });
 
 const ProgressContainer = styled(Box)({
@@ -60,6 +74,8 @@ const ProgressContainer = styled(Box)({
     display: 'flex',
     gap: '8px',
     zIndex: 3,
+    transition: 'opacity 0.3s ease-in-out',
+    opacity: 0.7
 });
 
 const ProgressDot = styled(Box, {
@@ -69,59 +85,76 @@ const ProgressDot = styled(Box, {
     height: '8px',
     borderRadius: '50%',
     backgroundColor: active ? colors.white : colors.gray[150],
-    transition: 'background-color 0.2s ease',
-    cursor: 'pointer'
+    transition: 'all 0.3s ease-in-out',
+    cursor: 'pointer',
+    transform: active ? 'scale(1.2)' : 'scale(1)',
+    '&:hover': {
+        backgroundColor: active ? colors.white : colors.gray[300],
+        transform: 'scale(1.3)'
+    }
 }));
 
 export const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
     title,
     subtitle,
-    imagePath,
-    imageCount,
+    imagePaths,
     currentImageIndex,
     onImageChange
 }) => {
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const currentImage = imagePaths[currentImageIndex];
+
+    useEffect(() => {
+        setIsTransitioning(true);
+        const timer = setTimeout(() => {
+            setIsTransitioning(false);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [currentImageIndex]);
+
     return (
         <CardContainer>
             <ImageContainer>
-                <Image
-                    src={imagePath}
-                    alt={title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    fetchPriority="high"
-                />
-                <GradientOverlay />
-                <ContentOverlay>
-                    <Paragraph
-                        sx={{
-                            fontSize: '14px',
-                            fontWeight: 500,
-                            textTransform: 'uppercase',
-                            marginBottom: '4px',
-                            display: 'block'
-                        }}
-                    >
-                        {subtitle}
-                    </Paragraph>
-                    <Heading
-                        sx={{
-                            fontSize: '18px',
-                            fontWeight: 600
-                        }}
-                    >
-                        {title}
-                    </Heading>
-                </ContentOverlay>
-                <ProgressContainer>
-                    {Array.from({ length: imageCount }, (_, index) => (
-                        <ProgressDot
-                            key={index}
-                            active={index === currentImageIndex}
-                            onClick={() => onImageChange(index)}
-                        />
-                    ))}
-                </ProgressContainer>
+                <ImageWrapper sx={{ opacity: isTransitioning ? 0.8 : 1 }}>
+                    <Image
+                        src={currentImage}
+                        alt={title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        fetchPriority="high"
+                    />
+                    <GradientOverlay />
+                    <ContentOverlay className="content-overlay">
+                        <Paragraph
+                            sx={{
+                                fontSize: '14px',
+                                fontWeight: 500,
+                                textTransform: 'uppercase',
+                                marginBottom: '4px',
+                                display: 'block'
+                            }}
+                        >
+                            {subtitle}
+                        </Paragraph>
+                        <Heading
+                            sx={{
+                                fontSize: '18px',
+                                fontWeight: 600
+                            }}
+                        >
+                            {title}
+                        </Heading>
+                    </ContentOverlay>
+                    <ProgressContainer className="progress-container">
+                        {imagePaths.map((_, index) => (
+                            <ProgressDot
+                                key={index}
+                                active={index === currentImageIndex}
+                                onClick={() => onImageChange(index)}
+                            />
+                        ))}
+                    </ProgressContainer>
+                </ImageWrapper>
             </ImageContainer>
         </CardContainer>
     );

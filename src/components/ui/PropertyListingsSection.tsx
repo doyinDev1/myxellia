@@ -1,45 +1,56 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import { PropertyListingCard } from '@/components';
+import { useAutoRotation } from '@/hooks';
 
 const propertyListings = [
     {
         id: 1,
         subtitle: "MOST CLICKED",
         title: "Urban Prime Plaza Premiere",
-        imagePath: "/assets/images/div1img01.png",
-        imageCount: 2
+        imagePaths: [
+            "/assets/images/div1img01.png",
+            "/assets/images/div2img01.jpg",
+            "/assets/images/div3img01.png"
+        ]
     },
     {
         id: 2,
         subtitle: "MOST WATCHLISTED",
         title: "Urban Prime Plaza Premiere",
-        imagePath: "/assets/images/div2img02.jpg",
-        imageCount: 5
+        imagePaths: [
+            "/assets/images/div2img02.jpg",
+            "/assets/images/div1img01.png",
+            "/assets/images/div2img01.jpg",
+            "/assets/images/div1img01.png",
+            "/assets/images/div3img01.png"
+        ]
     },
     {
         id: 3,
         subtitle: "HOTTEST LISTING",
         title: "Urban Prime Plaza Premiere",
-        imagePath: "/assets/images/div3img01.png",
-        imageCount: 5
+        imagePaths: [
+            "/assets/images/div3img01.png",
+            "/assets/images/div2img02.jpg",
+            "/assets/images/div1img01.png",
+            "/assets/images/div3img01.png",
+            "/assets/images/div2img01.jpg"
+        ]
     }
 ];
 
 export const PropertyListingsSection: React.FC = () => {
-    const [currentImages, setCurrentImages] = useState<{ [key: number]: number }>({
-        1: 0,
-        2: 0,
-        3: 0
+    const {
+        currentIndices,
+        handleManualChange,
+    } = useAutoRotation({
+        items: propertyListings,
+        intervalMs: 5000,
+        autoStart: true
     });
 
-    const handleImageChange = (propertyId: number, imageIndex: number) => {
-        setCurrentImages(prev => ({
-            ...prev,
-            [propertyId]: imageIndex
-        }));
-    };
     return (
         <Box sx={{ marginTop: "20px" }}>
             <Box sx={{
@@ -52,10 +63,9 @@ export const PropertyListingsSection: React.FC = () => {
                         key={property.id}
                         subtitle={property.subtitle}
                         title={property.title}
-                        imagePath={property.imagePath}
-                        imageCount={property.imageCount}
-                        currentImageIndex={currentImages[property.id]}
-                        onImageChange={(index) => handleImageChange(property.id, index)}
+                        imagePaths={property.imagePaths}
+                        currentImageIndex={currentIndices[property.id]}
+                        onImageChange={(index) => handleManualChange(property.id, index)}
                     />
                 ))}
             </Box>
