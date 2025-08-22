@@ -42,7 +42,7 @@ const StyledDialog = styled(Dialog)({
         borderRadius: 10,
         overflow: 'visible',
         width: '100%',
-        maxWidth: 426,
+        maxWidth: 438,
         backgroundColor: 'transparent',
     },
 });
