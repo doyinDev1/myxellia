@@ -94,6 +94,13 @@ const ProgressDot = styled(Box, {
     }
 }));
 
+const StyledParagraph = styled(Paragraph)({
+    fontSize: '14px',
+    fontWeight: 500,
+    textTransform: 'uppercase',
+    marginBottom: '4px',
+});
+
 export const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
     title,
     subtitle,
@@ -120,32 +127,23 @@ export const PropertyListingCard: React.FC<PropertyListingCardProps> = ({
                         src={currentImage}
                         alt={title}
                         fill
-                        style={{ objectFit: 'cover' }}
-                        fetchPriority="high"
+                        sizes="(max-width: 768px) 100vw, 
+                        (max-width: 1200px) 50vw, 
+                        33vw"
+                        style={{
+                            objectFit: 'cover'
+                        }}
                     />
                     <GradientOverlay />
-                    <ContentOverlay className="content-overlay">
-                        <Paragraph
-                            sx={{
-                                fontSize: '14px',
-                                fontWeight: 500,
-                                textTransform: 'uppercase',
-                                marginBottom: '4px',
-                                display: 'block'
-                            }}
-                        >
+                    <ContentOverlay >
+                        <StyledParagraph>
                             {subtitle}
-                        </Paragraph>
-                        <Heading
-                            sx={{
-                                fontSize: '18px',
-                                fontWeight: 600
-                            }}
-                        >
+                        </StyledParagraph>
+                        <Heading fontSize={18}>
                             {title}
                         </Heading>
                     </ContentOverlay>
-                    <ProgressContainer className="progress-container">
+                    <ProgressContainer >
                         {imagePaths.map((_, index) => (
                             <ProgressDot
                                 key={index}

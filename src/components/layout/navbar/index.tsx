@@ -34,6 +34,7 @@ const StyledIcon = styled(IconButton, {
     shouldForwardProp: (prop) => prop !== "disabled",
 })<{ disabled?: boolean }>(({ disabled }) => ({
     color: colors.white,
+    padding: '0px',
     cursor: disabled ? 'not-allowed' : 'pointer',
     '&:hover': {
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -81,7 +82,7 @@ const StyledBox = styled(Box)({
     alignItems: 'center',
     width: '320px',
     height: '43px',
-    backgroundColor: colors.gray[300],
+    background: colors.gray[300],
     borderRadius: "12px",
     padding: '0 16px',
     border: '1px solid',
@@ -205,6 +206,7 @@ export const Navbar = () => {
                                 }}
                                 placeholder="Search listings, users here..."
                                 value={searchValue}
+                                fullWidth
                                 onChange={(e) => setSearchValue(e.target.value)}
                             />
                             {searchValue && (

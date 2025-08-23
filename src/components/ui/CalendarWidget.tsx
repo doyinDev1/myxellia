@@ -211,8 +211,8 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
     open,
     onClose,
 }) => {
-    const [currentDate, setCurrentDate] = useState(new Date(2025, 10, 1));
-    const [selectedDate, setSelectedDate] = useState(new Date(2025, 10, 16));
+    const [currentDate, setCurrentDate] = useState(new Date(2025, 9, 1));
+    const [selectedDate, setSelectedDate] = useState(new Date(2025, 9, 16));
 
     const { isTransitioning, startTransition } = useTransition({ duration: 200 });
 
